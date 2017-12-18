@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ToDoList</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <script src="./vue.js"></script>
+
+  </head>
+  <body>
+    <div id="app" class="">
+    	<!-- 标题栏 -->
+        <header class="bar bar-nav">
+             <a @click="isSelect=!isSelect" class="icon icon-app pull-left"></a>
+            <h1 class="title">toDoList</h1>
+            <a @click="addTodo" class="icon icon-edit pull-right"></a>
+        </header>
+
+        <!-- 添加新内容 -->
+        <div class="mask" v-if='isInsertShow' @click="isInsertShow=false">
+            <div class="insert-box" @click.stop>
+                <textarea v-model="newContent"></textarea>
+
+                <div class="btn-box">
+                    <button @click="addNew" class="button button-fill button-success">完成</button>
+                    <button @click="isInsertShow=false" class="button button-fill button-danger">取消</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 内容区 -->
+        <div class="content">
+            <div class="card" v-for="item of showToDos" :class="{done:item.type=='done'?true:false}">
+                <div class="card-content">
+                    <!--  -->
+                    <div v-if="isSelect" class="item-content">
+                      <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                      <div class="item-inner">
+                        <!-- <div class="item-title label">开关</div> -->
+                        <div class="item-input">
+                          <label class="label-switch" @click="isAllSelect=item.isSelectThis">
+                            <input type="checkbox" v-model="item.isSelectThis">
+                            <!-- {{ item.isSelectThis 2}} -->
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!--  -->
+
+                    <div class="card-content-inner" @click="editTodo(item.tid)">
+                        {{ item.content }}
+                    </div>
+                    <div class="controls">
+                        <button @click="finish(item.tid)" :class="{'button-fill':item.type=='done'?true:false}" class="button button-small button-success"><span class="icon icon-check"></span></button>
+
+                        <button @click="remove(item.tid)" class="button button-fill button-small button-danger"><span class="icon icon-remove"></span></button>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab" v-if="!isSelect">
+            <a  v-for="item in types" @click="showType=item.type" :class="{active: showType==item.type?true:false}" class="tab-item external" href="javascript:;">
+                <!-- <span class="icon" :class="item.icon"></span> -->
+                <span class="tab-label">{{item.content}}</span>
+                {{item.icon}}
+            </a>
+        </nav>
+        <!--  -->
+        <nav class="bar bar-tab" v-if="isSelect">
+        	<a @click="selectAll" class="tab-item external" href="javascript:;">
+                <span class="tab-label">全选</span>
+            </a>
+            <a @click="allDone" class="tab-item external" href="javascript:;">
+                <span class="tab-label">完成</span>
+            </a>
+            <a @click="allUndo" class="tab-item external" href="javascript:;">
+                <span class="tab-label">未做</span>
+            </a>
+            <a @click="allRemove" class="tab-item external" href="javascript:;">
+                <span class="tab-label">删除</span>
+            </a>
+        </nav>
+    </div>
+    
+    <script src="./index.js"></script>
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>

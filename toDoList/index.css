@@ -1,0 +1,49 @@
+.card-content{
+	
+	margin: 0 auto;
+	height: 5rem;
+	display: flex;
+	justify-content: space-between;
+}
+.card-content-inner{
+	width:80%;
+	overflow-y: auto;
+}
+.controls{
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+.card{
+	border: 1px solid transparent;
+}
+.done{
+	border:1px solid rgb(42, 218, 56);
+}
+.mask{
+	width: 100%;
+	height: 100vh;
+	background: rgba(0,0,0,0.3);
+	position: absolute;
+	display: flex;justify-content: center;align-items: center;
+	z-index: 1000;
+}
+.insert-box{
+    width: 70%;
+    height: 15rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    display: flex;flex-direction: column;align-items: center;justify-content: space-around;
+}
+.insert-box textarea{
+    width: 80%;
+    height: 50%;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.insert-box .btn-box{
+    width: 70%;
+    display: flex;justify-content: space-around;
+}
